@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - UniVibe</title>
+    <link rel="icon" type="image/x-icon" href="univibe_logo.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+      UPLOADCARE_PUBLIC_KEY = '15b0fb63bd03ab10281b';
+    </script>
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+      (function() {
+        emailjs.init("_lBEMSYgfb9SfetCQ");
+      })();
+    </script>
+    <script>
+      // Enforce PDF-only uploads with Uploadcare and track PDF validity
+      let isPdfUploaded = false;
+      document.addEventListener('DOMContentLoaded', function() {
+        var widget = uploadcare.Widget('#clubDocuments');
+        widget.onUploadComplete(function(info) {
+          if (info.mimeType !== 'application/pdf') {
+            isPdfUploaded = false;
+            var errorBox = document.getElementById('errorMessage');
+            errorBox.style.display = 'block';
+            errorBox.textContent = 'Only PDF files are allowed!';
+            document.getElementById('clubDocuments').value = '';
+            setTimeout(function() {
+              errorBox.style.display = 'none';
+            }, 5000);
+          } else {
+            isPdfUploaded = true;
+          }
+        });
+      });
+    </script>
+    <style>
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 10px;
+        }
+        section.contact-form {
+            margin: 30px 0 40px 0;
+            padding: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="univibe_logo.png" alt="UniVibe Logo" class="logo" id="logo">
+                    <h1>UniVibe</h1>
+                </div>
+                <p class="tagline">The Pulse of Campus Life!</p>
+            </div>
+        </header>
+
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="contact.html" class="nav-link active">Contact Us</a>
+            <a href="faq.html" class="nav-link">FAQ</a>
+        </nav>
+
+        <section class="contact-form">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-form-container">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Reason for Contact</label>
+                        <select id="reason" name="reason" required onchange="toggleClubDocuments()">
+                            <option value="">Select a reason</option>
+                            <option value="issue">Issue in The App</option>
+                            <option value="club">Add Your Club</option>
+                            <option value="other">Other Reason</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="clubDocumentsGroup" style="display: none;">
+                        <label for="clubDocuments">Club Documents (PDF only)</label>
+                        <input
+                          type="hidden"
+                          role="uploadcare-uploader"
+                          name="clubDocuments"
+                          id="clubDocuments"
+                          data-clearable
+                          data-tabs="file url"
+                          data-multiple="false"
+                          data-images-only="false"
+                          data-accept="application/pdf"
+                        />
+                        <small class="file-hint">Please upload PDF documents that prove your club ownership</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+            <div id="successMessage" style="display:none; color: #1a7f37; background: #e6f9ed; border: 1px solid #b6e2cd; border-radius: 6px; padding: 12px; margin-top: 18px; text-align: center; font-weight: 500; font-size: 1.1rem;">
+                Your message has been sent successfully!
+            </div>
+            <div id="errorMessage" style="display:none; color: #b91c1c; background: #fbeaea; border: 1px solid #f5c2c7; border-radius: 6px; padding: 12px; margin-top: 18px; text-align: center; font-weight: 500; font-size: 1.1rem;">
+                Only PDF files are allowed!
+            </div>
+        </section>
+
+        <footer class="app-footer">
+            <p>© UniVibe | All Rights Reserved - 2025</p>
+        </footer>
+    </div>
+    <script>
+        function toggleClubDocuments() {
+            const reason = document.getElementById('reason').value;
+            const clubDocumentsGroup = document.getElementById('clubDocumentsGroup');
+            const clubDocuments = document.getElementById('clubDocuments');
+            
+            if (reason === 'club') {
+                clubDocumentsGroup.style.display = 'block';
+                clubDocuments.required = true;
+            } else {
+                clubDocumentsGroup.style.display = 'none';
+                clubDocuments.required = false;
+            }
+        }
+
+        function validateFile(input) {
+            const file = input.files[0];
+            if (file) {
+                if (file.type !== 'application/pdf') {
+                    alert('Please upload a PDF file only.');
+                    input.value = '';
+                }
+            }
+        }
+
+        // Initialize the form state and handle EmailJS submission
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleClubDocuments(); // Set initial state
+
+            const form = document.getElementById('contactForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Get the Uploadcare file URL (if any)
+                const clubDocuments = document.getElementById('clubDocuments').value;
+                const reason = document.getElementById('reason').value;
+
+                // If 'Add Your Club' is selected, require a PDF file
+                if (reason === 'club') {
+                    if (!clubDocuments || !isPdfUploaded) {
+                        var errorBox = document.getElementById('errorMessage');
+                        errorBox.textContent = 'Please upload a valid PDF document to prove your club ownership.';
+                        errorBox.style.display = 'block';
+                        setTimeout(function() {
+                            errorBox.style.display = 'none';
+                        }, 5000);
+                        return; // Prevent submission
+                    }
+                }
+
+                // Prepare the data for EmailJS
+                const formData = {
+                    name: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    title: document.getElementById('reason').options[document.getElementById('reason').selectedIndex].text,
+                    message: document.getElementById('message').value,
+                    clubDocuments: clubDocuments // This will be a URL or empty string
+                };
+
+                emailjs.send("service_oyevf2l", "template_dydkw8b", formData)
+                    .then(function(response) {
+                        // Show success message
+                        document.getElementById('successMessage').style.display = 'block';
+                        // Reset form
+                        form.reset();
+                        toggleClubDocuments();
+                        // Hide message after 5 seconds
+                        setTimeout(function() {
+                            document.getElementById('successMessage').style.display = 'none';
+                        }, 5000);
+                    }, function(error) {
+                        alert('Failed to send message. Please try again later.');
+                        console.error('Error:', error);
+                    });
+            });
+        });
+
+        // Add logo click effect (same as index page)
+        document.addEventListener('DOMContentLoaded', function() {
+            const logo = document.getElementById('logo');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    logo.style.transform = 'rotate(360deg)';
+                    setTimeout(() => {
+                        logo.style.transform = '';
+                    }, 1000);
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

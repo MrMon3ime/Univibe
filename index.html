@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniVibe - The Pulse of Campus Life!</title>
+    <link rel="icon" type="image/x-icon" href="univibe_logo.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="univibe_logo.png" alt="UniVibe Logo" class="logo" id="logo">
+                    <h1>UniVibe</h1>
+                </div>
+                <p class="tagline">The Pulse of Campus Life!</p>
+                <nav class="main-nav">
+                    <a href="index.html" class="nav-link active">Home</a>
+                    <a href="contact.html" class="nav-link">Contact Us</a>
+                    <a href="faq.html" class="nav-link">FAQ</a>
+                </nav>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Your Ultimate App for<br>Events, Fun & Tech!</h2>
+                <div class="cta-buttons">
+                    <button class="cta-button pulse">
+                        <span>Download Now</span>
+                        <i class="fas fa-arrow-down"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section class="features">
+            <h2 class="section-title">Never Miss Out</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-calendar-alt feature-icon"></i>
+                    <h3>All Events</h3>
+                    <p>Discover university events in one place.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3>Connect</h3>
+                    <p>Join clubs and meet students.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-brain feature-icon"></i>
+                    <h3>Smart Tools</h3>
+                    <p>Tech-powered campus life.</p>
+                </div>
+            </div>
+        </section>
+        <section class="trending">
+            <h2 class="section-title">Trending Now</h2>
+            <div class="carousel-nav">
+                <button id="trendingLeft" class="carousel-arrow"><i class="fas fa-chevron-left"></i></button>
+                <div class="events-grid" id="trendingGrid"></div>
+                <button id="trendingRight" class="carousel-arrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <section class="popular-events">
+            <h2 class="section-title">All Events</h2>
+            <div class="carousel-nav">
+                <button id="carouselLeft" class="carousel-arrow"><i class="fas fa-chevron-left"></i></button>
+                <div class="events-grid" id="eventsGrid"></div>
+                <button id="carouselRight" class="carousel-arrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <button id="seeMoreEvents" class="cta-button" style="display:none; margin: 30px auto 0 auto;">See More</button>
+        </section>
+        <footer class="app-footer">
+            <p>© UniVibe | All Rights Reserved - 2025</p>
+        </footer>
+    </div>
+    <script src="api-client.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

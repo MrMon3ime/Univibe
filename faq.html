@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - UniVibe</title>
+    <link rel="icon" type="image/x-icon" href="univibe_logo.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .faq-section {
+            max-width: 700px;
+            margin: 60px auto;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 40px 30px;
+        }
+        .faq-title {
+            text-align: center;
+            color: var(--primary-dark);
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        .faq-item {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 18px 0;
+        }
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--primary-medium);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: color 0.3s;
+        }
+        .faq-question:hover {
+            color: var(--accent-red);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.4s;
+            color: var(--text-dark);
+            font-size: 1rem;
+            margin-top: 0;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 12px;
+        }
+        .faq-toggle {
+            transition: transform 0.4s;
+        }
+        .faq-item.active .faq-toggle {
+            transform: rotate(90deg);
+            color: var(--accent-red);
+        }
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="univibe_logo.png" alt="UniVibe Logo" class="logo" id="logo">
+                    <h1>UniVibe</h1>
+                </div>
+                <p class="tagline">The Pulse of Campus Life!</p>
+                <nav class="main-nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="contact.html" class="nav-link">Contact Us</a>
+                    <a href="faq.html" class="nav-link active">FAQ</a>
+                </nav>
+            </div>
+        </header>
+        <section class="faq-section">
+            <h2 class="faq-title">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">What is UniVibe?<span class="faq-toggle"><i class="fas fa-chevron-right"></i></span></div>
+                <div class="faq-answer">UniVibe is your all-in-one platform for discovering, joining, and managing university events and clubs. Stay connected and never miss out on campus life!</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How do I join an event?<span class="faq-toggle"><i class="fas fa-chevron-right"></i></span></div>
+                <div class="faq-answer">Simply click the "Join Now" button on any event card. You'll be guided through the registration process or redirected to the event's details page.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can I add my own club or event?<span class="faq-toggle"><i class="fas fa-chevron-right"></i></span></div>
+                <div class="faq-answer">Yes! Use the "Contact Us" page to submit your club or event. Our team will review your submission and get in touch with you for verification.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Is UniVibe free to use?<span class="faq-toggle"><i class="fas fa-chevron-right"></i></span></div>
+                <div class="faq-answer">Absolutely! UniVibe is free for all students and clubs. Enjoy all features without any charges.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How do I contact support?<span class="faq-toggle"><i class="fas fa-chevron-right"></i></span></div>
+                <div class="faq-answer">You can reach out to us anytime via the "Contact Us" page. We aim to respond to all queries within 24 hours.</div>
+            </div>
+        </section>
+        <footer class="app-footer">
+            <p>© UniVibe | All Rights Reserved - 2025</p>
+        </footer>
+    </div>
+    <script>
+        // FAQ accordion effect
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', function() {
+                const item = this.parentElement;
+                item.classList.toggle('active');
+                // Close others
+                document.querySelectorAll('.faq-item').forEach(other => {
+                    if (other !== item) other.classList.remove('active');
+                });
+            });
+        });
+        // Logo click effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const logo = document.getElementById('logo');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    logo.style.transform = 'rotate(360deg)';
+                    setTimeout(() => {
+                        logo.style.transform = '';
+                    }, 1000);
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
